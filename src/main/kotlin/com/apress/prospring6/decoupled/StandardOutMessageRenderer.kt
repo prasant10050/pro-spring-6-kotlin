@@ -2,8 +2,9 @@ package com.apress.prospring6.decoupled
 
 import com.apress.prospring6.three.Container
 
-class StandardOutMessageRenderer : MessageRenderer {
-    override var messageProvider: MessageProvider? = null
+class StandardOutMessageRenderer(override var messageProvider: MessageProvider?) :
+    MessageRenderer {
+
     override fun render() {
         println(
             messageProvider?.message ?: throw RuntimeException(
