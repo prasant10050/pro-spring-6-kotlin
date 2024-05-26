@@ -9,6 +9,7 @@ class StandardOutMessageRenderer :
     MessageRenderer {
     override var messageProvider: MessageProvider? = null
         @Autowired set(value) {
+            println(" ~~ Injecting dependency using setter ~~")
             field = value
         }
 
