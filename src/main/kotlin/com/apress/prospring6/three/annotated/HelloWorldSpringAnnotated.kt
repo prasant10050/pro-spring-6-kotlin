@@ -1,4 +1,4 @@
-package com.apress.prospring6.two.annotated
+package com.apress.prospring6.three.annotated
 
 import com.apress.prospring6.decoupled.MessageRenderer
 import org.springframework.context.ApplicationContext

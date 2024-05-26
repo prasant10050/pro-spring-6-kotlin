@@ -1,4 +1,4 @@
-package com.apress.prospring6.two
+package com.apress.prospring6.three
 
 import com.apress.prospring6.decoupled.MessageRenderer
 import org.springframework.context.ApplicationContext

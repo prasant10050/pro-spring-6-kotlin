@@ -1,6 +1,9 @@
 package com.apress.prospring6.decoupled
 
+import com.apress.prospring6.three.Container
+
 class StandardOutMessageRenderer : MessageRenderer {
+    override var messageProvider: MessageProvider? = null
     override fun render() {
         println(
             messageProvider?.message ?: throw RuntimeException(
@@ -9,11 +12,10 @@ class StandardOutMessageRenderer : MessageRenderer {
         )
     }
 
-    override var messageProvider: MessageProvider? = null
-        set(value) {
-            field = value
-            println("--> StandardOutMessageRenderer::setting the provider")
-        }
+    override fun performLookup(container: Container) {
+        this.messageProvider =
+            container.getDependency("provider") as MessageProvider
+    }
 
     init {
         println("--> StandardOutMessageRenderer:: constructor called")

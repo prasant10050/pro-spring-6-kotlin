@@ -1,4 +1,4 @@
-package com.apress.prospring6.two
+package com.apress.prospring6.three
 
 object HelloWorld {
     @JvmStatic
