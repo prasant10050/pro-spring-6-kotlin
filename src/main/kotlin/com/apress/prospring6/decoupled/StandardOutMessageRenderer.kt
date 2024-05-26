@@ -21,4 +21,8 @@ class StandardOutMessageRenderer(override var messageProvider: MessageProvider?)
     init {
         println("--> StandardOutMessageRenderer:: constructor called")
     }
+
+    fun setMessageProvider(messageProvider: MessageProvider?) {
+        this.messageProvider = messageProvider
+    }
 }
