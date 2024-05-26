@@ -5,13 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
 @Component("renderer")
-class StandardOutMessageRenderer :
+class StandardOutMessageRenderer @Autowired constructor(override var messageProvider: MessageProvider? ):
     MessageRenderer {
-    override var messageProvider: MessageProvider? = null
-        @Autowired set(value) {
-            println(" ~~ Injecting dependency using setter ~~")
-            field = value
-        }
 
     override fun render() {
         println(
@@ -21,16 +16,7 @@ class StandardOutMessageRenderer :
         )
     }
 
-    override fun performLookup(container: Container) {
-        this.messageProvider =
-            container.getDependency("provider") as MessageProvider
-    }
-
     init {
         println("--> StandardOutMessageRenderer:: constructor called")
-    }
-
-    fun setMessageProvider(messageProvider: MessageProvider?) {
-        this.messageProvider = messageProvider
     }
 }
