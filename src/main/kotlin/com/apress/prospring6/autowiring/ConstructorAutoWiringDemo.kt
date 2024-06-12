@@ -58,18 +58,18 @@ internal class Target {
     var fooTwo: Foo? = null
     var bar: Bar? = null
 
-    constructor() {
-        logger.info("---> Target() called")
+    init {
+        logger.info("---> Target.init() called")
     }
 
     //@Autowired
-    constructor(foo: Foo) {
+    constructor(@Qualifier("foo") foo: Foo?) {
         fooOne = foo
         logger.info("---> Target(Foo) called")
     }
 
-    //@Autowired
-    constructor(foo: Foo, bar: Bar) {
+    @Autowired
+    constructor(@Qualifier("foo") foo: Foo?, bar: Bar?) {
         fooOne = foo
         this.bar = bar
         logger.info("---> Target(Foo,Bar) called")
