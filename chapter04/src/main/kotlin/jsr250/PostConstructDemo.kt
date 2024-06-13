@@ -21,6 +21,8 @@ object PostConstructDemo {
         getBean("singerOne", ctx)
         getBean("singerTwo", ctx)
         getBean("singerThree", ctx)
+        //ctx.close()
+        ctx.registerShutdownHook()
     }
 
     fun getBean(beanName: String?, ctx: ApplicationContext): Singer? {
@@ -112,6 +114,25 @@ open class SingerConfiguration {
     open fun singerThree(): Singer {
         val singer = Singer()
         singer.name = "John Butler"
+        //singer.age=41
         return singer
     }
 }
+
+
+// : DisposableBean interface
+//@Throws(Exception::class)
+//override fun destroy() {
+//LOGGER.info("Calling destroy() on bean of type {}", FileManager::class.java)
+//Files.deleteIfExists(file)
+//}
+
+// @Bean(destroyMethod = "destroyMethod")
+//@Throws(IOException::class)
+//private fun destroyMethod() {
+//    logger.info(
+//    "Calling destroyMethod() on bean of type {}",
+//    FileManager::class.java
+//    )
+//    Files.deleteIfExists(file)
+//    }
