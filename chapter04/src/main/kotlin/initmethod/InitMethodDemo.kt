@@ -3,10 +3,12 @@ package com.apress.prospring6.initmethod
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.BeanCreationException
+import org.springframework.beans.factory.InitializingBean
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import kotlin.jvm.Throws
 
 object InitMethodDemo {
     private val logger: Logger = LoggerFactory.getLogger(InitMethodDemo::class.java)
@@ -31,10 +33,11 @@ object InitMethodDemo {
     }
 }
 
-class Singer {
+class Singer:InitializingBean {
     companion object {
         private val logger: Logger = LoggerFactory.getLogger(Singer::class.java)
         private const val DEFAULT_NAME = "No Name"
+        private const val DEFAULT_AGE = 0
     }
 
     var name: String? = null
@@ -60,17 +63,27 @@ class Singer {
             logger.info("using default name")
             name = DEFAULT_NAME
         }
+//        if (age == Int.MIN_VALUE) {
+//            logger.info("using default age")
+//            age = DEFAULT_AGE
+//        }
         require(age != Int.MIN_VALUE) { "You must set the age property of any beans of type" + Singer::class.java }
     }
 
     override fun toString(): String {
         return "name=${name}, age=${name}"
     }
+
+    @Throws(Exception::class)
+    override fun afterPropertiesSet() {
+        logger.info("Initializing bean using 'afterPropertiesSet()'")
+        init()
+    }
 }
 
 @Configuration
 open class SingerConfiguration{
-    @Bean(initMethod = "init")
+    @Bean
     open fun singerOne():Singer{
         val singer=Singer()
         singer.name="John Mayer"
@@ -78,14 +91,14 @@ open class SingerConfiguration{
         return singer
     }
 
-    @Bean(initMethod = "init")
+    @Bean
     open fun singerTwo():Singer{
         val singer=Singer()
         singer.age=42
         return singer
     }
 
-    @Bean(initMethod = "init")
+    @Bean
     open fun singerThree():Singer{
         val singer=Singer()
         singer.name="John Butler"
